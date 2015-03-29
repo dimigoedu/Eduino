@@ -2,6 +2,7 @@ package com.codebakery.eduino.GUI.BlockUI.BlockFunction.Grouping;
 
 import com.codebakery.eduino.GUI.BlockUI.GUIBlock;
 import com.codebakery.eduino.GUI.BlockUI.GUIBLockUtil.GUIListBlock;
+import com.codebakery.eduino.main.Main;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -13,9 +14,11 @@ public class BlockGroup extends VBox{
 
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
+    GUIBlock rootBlock;
 
     public BlockGroup(GUIListBlock listBlock)
     {
+        rootBlock = listBlock.get(0);
         for(GUIBlock block : listBlock) {
             this.setHeight(this.getHeight()+block.getHeight());
             this.getChildren().add(block);
@@ -27,6 +30,7 @@ public class BlockGroup extends VBox{
     }
     public BlockGroup(int start_index,GUIListBlock listBlock)
     {
+        rootBlock = listBlock.get(0);
         for(int i = start_index;i<listBlock.size();i++) {
             this.setHeight(this.getHeight() + listBlock.get(i).getHeight());
             this.getChildren().add(listBlock.get(i));
@@ -35,9 +39,12 @@ public class BlockGroup extends VBox{
         this.setLayoutY(listBlock.get(start_index).getLayoutY());
         this.setOnMousePressed(OnMousePressedEventHandler);
         this.setOnMouseDragged(OnMouseDraggedEventHandler);
+        this.setOnMouseReleased(OnMouseReleaseEventHandler);
     }
+
     public BlockGroup(int start_index,int end_index,GUIListBlock listBlock)
     {
+        rootBlock = listBlock.get(0);
         for(int i = start_index;i<=end_index;i++) {
             this.setHeight(this.getHeight() + listBlock.get(i).getHeight());
             this.getChildren().add(listBlock.get(i));
@@ -52,6 +59,7 @@ public class BlockGroup extends VBox{
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
+                    Main.setDragBlockBoard((BlockGroup)t.getSource());
                     orgSceneX = t.getSceneX();
                     orgSceneY = t.getSceneY();
                     orgTranslateX = ((BlockGroup)(t.getSource())).getTranslateX();
@@ -71,6 +79,15 @@ public class BlockGroup extends VBox{
 
                     ((BlockGroup)(t.getSource())).setTranslateX(newTranslateX);
                     ((BlockGroup)(t.getSource())).setTranslateY(newTranslateY);
+                }
+            };
+
+    EventHandler<MouseEvent> OnMouseReleaseEventHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent t) {
+                    Main.clearDragBlockBoard();
+                    rootBlock.clearGroupBlock();
                 }
             };
 
