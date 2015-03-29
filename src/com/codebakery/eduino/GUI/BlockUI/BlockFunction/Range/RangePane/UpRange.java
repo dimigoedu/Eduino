@@ -13,6 +13,16 @@ public class UpRange extends RangePane {
         this.blockPoint.setX(x);
         this.blockPoint.setY(y);
         this.height = height;
+        this.register();
+    }
+
+    public void updateRange(Boolean Big,double x, double y,double height)
+    {
+        this.big = Big;
+        this.blockPoint.setX(x);
+        this.blockPoint.setY(y);
+        this.height = height;
+        this.register();
     }
 
     public void BlockPositionSetting()

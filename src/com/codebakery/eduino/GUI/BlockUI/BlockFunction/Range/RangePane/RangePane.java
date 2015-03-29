@@ -1,10 +1,9 @@
 package com.codebakery.eduino.GUI.BlockUI.BlockFunction.Range.RangePane;
 
-import com.codebakery.eduino.Block.Block;
 import com.codebakery.eduino.GUI.BlockUI.BlockFunction.BlockPoint;
+import com.codebakery.eduino.main.Main;
 import javafx.scene.layout.Pane;
 
-import java.awt.*;
 
 /**
  * Created by Timo on 15. 3. 28..
@@ -31,25 +30,36 @@ public abstract class RangePane extends Pane {
     {
         this.setLayoutY(y);
     }
-    public BlockPoint getBlockPoint()
-    {
-        BlockPoint blockPoint = new BlockPoint(this.getX(),this.getY());
-        return blockPoint;
-    }
-    public void setPosition(BlockPoint blockPoint)
-    {
-        this.setLayoutX(blockPoint.getX());
-        this.setLayoutY(blockPoint.getY());
-    }
 
     public void register()
     {
-
+        setSize();
+        BlockPositionSetting();
+        Main.addNode(this);
     }
     public void release()
     {
-
+        Main.deleteNode(this);
     }
+
+    public void setSize()   //재정의 해야함
+    {
+        double width = 100;
+        double height_normal = 100;
+        double height_big = 200;
+        if(this.big) {
+            this.setWidth(width);
+            this.setHeight(height_big);
+        }
+        else{
+            this.setWidth(width);
+            this.setHeight(height_normal);
+        }
+    }
+
     public abstract void BlockPositionSetting();
+    public abstract void updateRange(Boolean Big,double x, double y,double height);
+
+
 
 }
