@@ -1,5 +1,7 @@
 package com.codebakery.eduino.main;
 
+import com.codebakery.eduino.GUI.BlockUI.BlockFunction.Grouping.BlockGroup;
+import com.codebakery.eduino.GUI.BlockUI.GUIBLockUtil.DragBlockBoard;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
     public static Pane root;
-
+    public static DragBlockBoard dragBlockBoard;
     @Override
     public void start(Stage primaryStage) throws Exception{
         root = new Pane();
@@ -48,7 +50,6 @@ public class Main extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
     public static void addNode(Node node)
     {
         root.getChildren().add(node);
@@ -56,5 +57,14 @@ public class Main extends Application{
     public static void deleteNode(Node node)
     {
         root.getChildren().remove(node);
+    }
+
+    public static void setDragBlockBoard(BlockGroup blockGroup)
+    {
+        dragBlockBoard.setBlockGroup(blockGroup);
+    }
+    public static void clearDragBlockBoard()
+    {
+        dragBlockBoard.clear();
     }
 }

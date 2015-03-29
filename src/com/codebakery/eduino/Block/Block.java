@@ -39,6 +39,10 @@ public abstract class Block {
     {
         this.guiBlock = gui;
     }
+    public GUIBlock getGuiBlock()
+    {
+        return this.guiBlock;
+    }
     public void setChild(Block block)
     {
         this.child = block;
