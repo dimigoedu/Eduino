@@ -1,20 +1,17 @@
 package com.codebakery.eduino.GUI.BlockUI.GUIBLockUtil;
 
-import com.codebakery.eduino.Block.Block;
+import com.codebakery.eduino.Block.ListBlock;
 import com.codebakery.eduino.GUI.BlockUI.BlockFunction.Grouping.BlockGroup;
 
 /**
  * Created by Timo on 15. 3. 29..
  */
 public class DragBlockBoard {
-
     public static BlockGroup blockGroup;
-
     public DragBlockBoard()
     {
         blockGroup = null;
     }
-
     public static Boolean hasBlockGroup()
     {
         if(blockGroup != null)
@@ -31,7 +28,9 @@ public class DragBlockBoard {
     {
         return blockGroup;
     }
-
+    public static ListBlock getListBlock() {
+        return blockGroup.getListBlock();
+    }
     public static void clear()
     {
         blockGroup = null;

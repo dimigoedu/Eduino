@@ -13,6 +13,13 @@ public abstract class Block {
     Block parent;
     GUIBlock guiBlock;
 
+    public void makeBlock()
+    {
+        setChild(null);
+        setParent(null);
+        guiBlock = new GUIBlock(this);
+    }
+
     public Boolean hasChild()
     {
         if(child != null)

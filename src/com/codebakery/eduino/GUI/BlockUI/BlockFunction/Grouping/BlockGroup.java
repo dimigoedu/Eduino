@@ -1,5 +1,7 @@
 package com.codebakery.eduino.GUI.BlockUI.BlockFunction.Grouping;
 
+import com.codebakery.eduino.Block.Block;
+import com.codebakery.eduino.Block.ListBlock;
 import com.codebakery.eduino.GUI.BlockUI.GUIBlock;
 import com.codebakery.eduino.GUI.BlockUI.GUIBLockUtil.GUIListBlock;
 import com.codebakery.eduino.main.Main;
@@ -54,6 +56,38 @@ public class BlockGroup extends VBox{
         this.setOnMousePressed(OnMousePressedEventHandler);
         this.setOnMouseDragged(OnMouseDraggedEventHandler);
     }
+    public GUIBlock getRootBlock()
+    {
+        return this.rootBlock;
+    }
+
+    public GUIListBlock getGUIListBlock()
+    {
+        GUIBlock block = this.getRootBlock();
+        GUIListBlock listBlock = null;
+        listBlock.add(block);
+        while(block.getNextGUIBlock() != null)
+        {
+            block = block.getNextGUIBlock();
+            listBlock.add(block);
+        }
+        return listBlock;
+
+    }
+
+    public ListBlock getListBlock()
+    {
+        Block block = this.getRootBlock().getBlock();
+        ListBlock listBlock = null;
+        listBlock.add(block);
+        while(block.getChild() != null)
+        {
+            block = block.getChild();
+            listBlock.add(block);
+        }
+        return listBlock;
+    }
+
 
     EventHandler<MouseEvent> OnMousePressedEventHandler =
             new EventHandler<MouseEvent>() {
@@ -69,7 +103,6 @@ public class BlockGroup extends VBox{
 
     EventHandler<MouseEvent> OnMouseDraggedEventHandler =
             new EventHandler<MouseEvent>() {
-
                 @Override
                 public void handle(MouseEvent t) {
                     double offsetX = t.getSceneX() - orgSceneX;

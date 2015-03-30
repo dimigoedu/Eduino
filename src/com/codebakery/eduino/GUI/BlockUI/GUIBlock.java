@@ -3,6 +3,7 @@ package com.codebakery.eduino.GUI.BlockUI;
 import com.codebakery.eduino.Block.Block;
 import com.codebakery.eduino.GUI.BlockUI.BlockDesign.BlockDesign;
 import com.codebakery.eduino.GUI.BlockUI.BlockFunction.Grouping.BlockGroup;
+import com.codebakery.eduino.GUI.BlockUI.BlockFunction.Range.Range;
 import com.codebakery.eduino.GUI.BlockUI.GUIBLockUtil.GUIListBlock;
 import com.codebakery.eduino.main.Main;
 import javafx.event.EventHandler;
@@ -12,14 +13,17 @@ import javafx.scene.layout.StackPane;
 /**
  * Created by Timo on 15. 3. 28..
  */
-public abstract class GUIBlock extends StackPane{
+public class GUIBlock extends StackPane{
+
     Block block;
     BlockDesign design;
     BlockGroup group;
+    Range range;
 
-    public abstract void setApperance();
-    public void setBlock()
+    public GUIBlock(Block block)
     {
+        this.block = block;
+        range = new Range(this);
         this.setOnMousePressed(OnMousePressedEventHandler);
     }
     public Block getBlock(){
@@ -29,12 +33,16 @@ public abstract class GUIBlock extends StackPane{
     {
         GUIListBlock blocks = null;
         Block block = this.block;
-        do {
+        while(block !=null)
+        {
             blocks.add(block.getGuiBlock());
             block = block.getChild();
-        }while(block !=null);
-
+        }
         return blocks;
+    }
+    public GUIBlock getNextGUIBlock()
+    {
+        return this.block.getChild().getGuiBlock();
     }
     public void clearGroupBlock()
     {
@@ -53,5 +61,6 @@ public abstract class GUIBlock extends StackPane{
                     Main.setDragBlockBoard(group);
                 }
             };
+
 
 }

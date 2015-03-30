@@ -58,7 +58,7 @@ public class Main extends Application{
     {
         root.getChildren().remove(node);
     }
-
+    public static BlockGroup getBlockGroup() { return dragBlockBoard.getBlockGroup(); }
     public static void setDragBlockBoard(BlockGroup blockGroup)
     {
         dragBlockBoard.setBlockGroup(blockGroup);
@@ -66,5 +66,12 @@ public class Main extends Application{
     public static void clearDragBlockBoard()
     {
         dragBlockBoard.clear();
+    }
+    public static Boolean hasDragBlockBoard()
+    {
+        if(dragBlockBoard != null)
+            return true;
+        else
+            return false;
     }
 }

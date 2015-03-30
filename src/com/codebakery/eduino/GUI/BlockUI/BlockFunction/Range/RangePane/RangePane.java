@@ -1,7 +1,11 @@
 package com.codebakery.eduino.GUI.BlockUI.BlockFunction.Range.RangePane;
 
 import com.codebakery.eduino.GUI.BlockUI.BlockFunction.BlockPoint;
+import com.codebakery.eduino.GUI.BlockUI.BlockFunction.Grouping.BlockGroup;
 import com.codebakery.eduino.main.Main;
+import javafx.event.EventHandler;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 
@@ -33,6 +37,7 @@ public abstract class RangePane extends Pane {
 
     public void register()
     {
+        this.setOnDragOver(OnMouseDragOverEventHandler);
         setSize();
         BlockPositionSetting();
         Main.addNode(this);
@@ -41,7 +46,6 @@ public abstract class RangePane extends Pane {
     {
         Main.deleteNode(this);
     }
-
     public void setSize()   //재정의 해야함
     {
         double width = 100;
@@ -56,10 +60,28 @@ public abstract class RangePane extends Pane {
             this.setHeight(height_normal);
         }
     }
-
     public abstract void BlockPositionSetting();
     public abstract void updateRange(Boolean Big,double x, double y,double height);
 
+    EventHandler<DragEvent> OnMouseDragOverEventHandler =
+            new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent t) {
+                    if(Main.hasDragBlockBoard())
+                        highLight();
+                }
+            };
 
 
+    public void highLight()
+    {
+        if(this.big)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }
